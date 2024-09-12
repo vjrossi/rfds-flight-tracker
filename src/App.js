@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import FlightTable from './components/FlightTable';
 import FlightSimulation from './components/FlightSimulation';
+import FlightMap from './components/FlightMap';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<FlightTable />} />
           <Route path="/simulation" element={<FlightSimulation />} />
+          <Route path="/map" element={<FlightMap />} />
         </Routes>
       </div>
     </Router>

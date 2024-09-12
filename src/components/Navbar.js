@@ -11,6 +11,9 @@ const Navbar = () => {
         <li style={{ margin: '0 10px' }}>
           <Link to="/simulation" style={{ textDecoration: 'none', color: '#007bff' }}>Flight Simulation</Link>
         </li>
+        <li style={{ margin: '0 10px' }}>
+          <Link to="/map" style={{ textDecoration: 'none', color: '#007bff' }}>Flight Map</Link>
+        </li>
       </ul>
     </nav>
   );

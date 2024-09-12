@@ -54,10 +54,10 @@ function generateFlightData() {
 
   const sortedFlights = flights.sort((a, b) => new Date(a.departureTime) - new Date(b.departureTime));
 
-  console.log("\nSorted Flights (for yesterday):");
-  sortedFlights.forEach((flight, index) => {
-    console.log(`${index + 1}. ${flight.id} | ${flight.departureAirport} -> ${flight.arrivalAirport} | Departure: ${new Date(flight.departureTime).toLocaleString()} | Arrival: ${new Date(flight.arrivalTime).toLocaleString()}`);
-  });
+  // console.log("\nSorted Flights (for yesterday):");
+  // sortedFlights.forEach((flight, index) => {
+  //   console.log(`${index + 1}. ${flight.id} | ${flight.departureAirport} -> ${flight.arrivalAirport} | Departure: ${new Date(flight.departureTime).toLocaleString()} | Arrival: ${new Date(flight.arrivalTime).toLocaleString()}`);
+  // });
 
   return sortedFlights;
 }
