@@ -1,12 +1,20 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './components/Navbar';
 import FlightTable from './components/FlightTable';
+import FlightSimulation from './components/FlightSimulation';
 
 function App() {
   return (
-    <div className="App">
-      <FlightTable />
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<FlightTable />} />
+          <Route path="/simulation" element={<FlightSimulation />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
