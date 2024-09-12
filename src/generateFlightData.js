@@ -1,59 +1,65 @@
 import australianAirports from './airportData';
 
-function generateFlightData(startDate = new Date()) {
-    const flights = [];
-    const totalPlanes = 77;
-    const usedPlanes = new Set();
-    const endDate = new Date(startDate.getTime() + 24 * 60 * 60 * 1000);
+function generateFlightData() {
+  const flights = [];
+  const totalPlanes = 77;
+  const usedPlanes = new Set();
 
-    // Helper function to generate a skewed random time
-    function getSkewedTime(start, end) {
-        const skew = Math.pow(Math.random(), 2); // Skew towards earlier times
-        return new Date(start.getTime() + skew * (end.getTime() - start.getTime()));
+  // Set the date to yesterday
+  const startDate = new Date();
+  startDate.setDate(startDate.getDate() - 1);
+  startDate.setHours(0, 0, 0, 0); // Set to start of yesterday
+
+  const endDate = new Date(startDate.getTime() + 24 * 60 * 60 * 1000 - 1); // Set to end of yesterday
+
+  const targetFlights = 13 + Math.floor(Math.random() * 5); // 13 to 17 flights
+
+  function getSkewedTime(start, end) {
+    const skew = Math.pow(Math.random(), 1.5);
+    return new Date(start.getTime() + skew * (end.getTime() - start.getTime()));
+  }
+
+  for (let i = 0; i < targetFlights; i++) {
+    let departureTime;
+    do {
+      departureTime = getSkewedTime(startDate, endDate);
+    } while (departureTime.getHours() >= 0 && departureTime.getHours() < 12 && Math.random() > 0.3);
+
+    const departureAirport = australianAirports[Math.floor(Math.random() * australianAirports.length)];
+    let arrivalAirport;
+    do {
+      arrivalAirport = australianAirports[Math.floor(Math.random() * australianAirports.length)];
+    } while (arrivalAirport === departureAirport);
+
+    const maxFlightDuration = Math.min(120, (endDate.getTime() - departureTime.getTime()) / (60 * 1000));
+    const flightDuration = Math.floor(Math.random() * (maxFlightDuration - 30) + 30) * 60 * 1000; // 30 minutes to maxFlightDuration or 2 hours, whichever is less
+    const arrivalTime = new Date(departureTime.getTime() + flightDuration);
+
+    if (arrivalTime > endDate) {
+      continue; // Skip this flight if it would end after the day
     }
 
-    while (startDate < endDate) {
-        // Determine if we should generate a flight (more likely between 6 AM and midnight)
-        const hour = startDate.getHours();
-        const flightProbability = (hour >= 6 && hour < 24) ? 0.8 : 0.2;
+    const planeId = Math.floor(Math.random() * totalPlanes) + 1;
+    usedPlanes.add(planeId);
 
-        if (Math.random() < flightProbability && usedPlanes.size < totalPlanes) {
-            const departureAirport = australianAirports[Math.floor(Math.random() * australianAirports.length)];
-            let arrivalAirport;
-            do {
-                arrivalAirport = australianAirports[Math.floor(Math.random() * australianAirports.length)];
-            } while (arrivalAirport === departureAirport);
+    flights.push({
+      id: `RFDS${planeId}-${flights.length + 1}`,
+      departureAirport: departureAirport.iataCode,
+      arrivalAirport: arrivalAirport.iataCode,
+      departureTime: departureTime.toISOString(),
+      arrivalTime: arrivalTime.toISOString(),
+      aircraft: `PC-12-${planeId}`,
+    });
+  }
 
-            const departureTime = getSkewedTime(startDate, endDate);
-            const flightDuration = Math.floor(Math.random() * 90 + 30) * 60 * 1000; // 30 minutes to 2 hours
-            const arrivalTime = new Date(departureTime.getTime() + flightDuration);
+  const sortedFlights = flights.sort((a, b) => new Date(a.departureTime) - new Date(b.departureTime));
 
-            if (arrivalTime <= endDate) {
-                const planeId = Math.floor(Math.random() * totalPlanes) + 1;
-                usedPlanes.add(planeId);
+  console.log("\nSorted Flights (for yesterday):");
+  sortedFlights.forEach((flight, index) => {
+    console.log(`${index + 1}. ${flight.id} | ${flight.departureAirport} -> ${flight.arrivalAirport} | Departure: ${new Date(flight.departureTime).toLocaleString()} | Arrival: ${new Date(flight.arrivalTime).toLocaleString()}`);
+  });
 
-                flights.push({
-                    id: `RFDS${planeId}-${flights.length + 1}`,
-                    departureAirport: departureAirport.iataCode,
-                    arrivalAirport: arrivalAirport.iataCode,
-                    departureTime: departureTime.toISOString(),
-                    arrivalTime: arrivalTime.toISOString(),
-                    aircraft: `PC-12-${planeId}`,
-                });
-
-                // Move the start time to the arrival time of this flight
-                startDate = new Date(arrivalTime.getTime());
-            } else {
-                // If the flight would end after the 24-hour period, just increment the time
-                startDate = new Date(startDate.getTime() + 15 * 60 * 1000); // 15-minute increments
-            }
-        } else {
-            // If no flight is generated, increment the time
-            startDate = new Date(startDate.getTime() + 15 * 60 * 1000); // 15-minute increments
-        }
-    }
-
-    return flights.sort((a, b) => new Date(a.departureTime) - new Date(b.departureTime));
+  return sortedFlights;
 }
 
 export default generateFlightData;

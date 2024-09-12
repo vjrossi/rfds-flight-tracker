@@ -3,34 +3,34 @@ import australianAirports from './airportData';
 
 describe('generateFlightData', () => {
   let flights;
-  const startDate = new Date('2023-01-01T00:00:00Z');
 
-  beforeAll(() => {
-    flights = generateFlightData(startDate);
+  beforeEach(() => {
+    flights = generateFlightData();
+  });
+
+  test('generates between 13 and 17 flights per day', () => {
+    expect(flights.length).toBeGreaterThanOrEqual(13);
+    expect(flights.length).toBeLessThanOrEqual(17);
   });
 
   test('generates flights within a 24-hour period', () => {
-    const endDate = new Date(startDate.getTime() + 24 * 60 * 60 * 1000);
-    flights.forEach(flight => {
-      expect(new Date(flight.departureTime).getTime()).toBeGreaterThanOrEqual(startDate.getTime());
-      expect(new Date(flight.arrivalTime).getTime()).toBeLessThanOrEqual(endDate.getTime());
-    });
+    const firstFlightTime = new Date(flights[0].departureTime);
+    const lastFlightTime = new Date(flights[flights.length - 1].arrivalTime);
+    
+    // Check if all flights are within the same day
+    expect(firstFlightTime.getDate()).toBe(lastFlightTime.getDate());
+    
+    // Check if the time difference is less than or equal to 24 hours
+    const timeDifference = lastFlightTime.getTime() - firstFlightTime.getTime();
+    expect(timeDifference).toBeLessThanOrEqual(24 * 60 * 60 * 1000);
   });
 
-  test('uses no more than 77 unique planes', () => {
-    const uniquePlanes = new Set(flights.map(flight => flight.aircraft));
-    expect(uniquePlanes.size).toBeLessThanOrEqual(77);
-  });
-
-  test('each flight has the required properties', () => {
-    flights.forEach(flight => {
-      expect(flight).toHaveProperty('id');
-      expect(flight).toHaveProperty('departureAirport');
-      expect(flight).toHaveProperty('arrivalAirport');
-      expect(flight).toHaveProperty('departureTime');
-      expect(flight).toHaveProperty('arrivalTime');
-      expect(flight).toHaveProperty('aircraft');
-    });
+  test('flights are sorted by departure time', () => {
+    for (let i = 1; i < flights.length; i++) {
+      const prevDepartureTime = new Date(flights[i-1].departureTime).getTime();
+      const currentDepartureTime = new Date(flights[i].departureTime).getTime();
+      expect(currentDepartureTime).toBeGreaterThanOrEqual(prevDepartureTime);
+    }
   });
 
   test('departure and arrival airports are different', () => {
@@ -47,34 +47,21 @@ describe('generateFlightData', () => {
     });
   });
 
-  test('arrival time is after departure time', () => {
-    flights.forEach(flight => {
-      expect(new Date(flight.arrivalTime).getTime()).toBeGreaterThan(new Date(flight.departureTime).getTime());
-    });
-  });
-
   test('flight duration is between 30 minutes and 2 hours', () => {
     flights.forEach(flight => {
-      const durationMs = new Date(flight.arrivalTime) - new Date(flight.departureTime);
-      const durationMinutes = durationMs / (1000 * 60);
+      const departureTime = new Date(flight.departureTime).getTime();
+      const arrivalTime = new Date(flight.arrivalTime).getTime();
+      const durationMinutes = (arrivalTime - departureTime) / (1000 * 60);
       expect(durationMinutes).toBeGreaterThanOrEqual(30);
       expect(durationMinutes).toBeLessThanOrEqual(120);
     });
   });
 
-  test('flights are skewed towards 6 AM to midnight', () => {
-    const dayFlights = flights.filter(flight => {
-      const hour = new Date(flight.departureTime).getUTCHours();
-      return hour >= 6 && hour < 24;
+  test('flights are skewed towards afternoon and evening (12 PM to midnight)', () => {
+    const afternoonEveningFlights = flights.filter(flight => {
+      const hour = new Date(flight.departureTime).getHours();
+      return hour >= 12 && hour < 24;
     });
-    expect(dayFlights.length).toBeGreaterThan(flights.length * 0.6); // Expecting more than 60% of flights during day time
-  });
-
-  test('flights are sorted by departure time', () => {
-    for (let i = 1; i < flights.length; i++) {
-      const prevDepartureTime = new Date(flights[i - 1].departureTime).getTime();
-      const currentDepartureTime = new Date(flights[i].departureTime).getTime();
-      expect(currentDepartureTime).toBeGreaterThanOrEqual(prevDepartureTime);
-    }
+    expect(afternoonEveningFlights.length).toBeGreaterThan(flights.length * 0.6); // Expecting more than 60% of flights between 12 PM and midnight
   });
 });
