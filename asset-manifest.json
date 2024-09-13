@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/rfds-flight-tracker/static/css/main.9253a055.css",
-    "main.js": "/rfds-flight-tracker/static/js/main.e9ca37a8.js",
+    "main.js": "/rfds-flight-tracker/static/js/main.2b9bc082.js",
     "static/js/879.f8cdbd1e.chunk.js": "/rfds-flight-tracker/static/js/879.f8cdbd1e.chunk.js",
     "index.html": "/rfds-flight-tracker/index.html",
     "main.9253a055.css.map": "/rfds-flight-tracker/static/css/main.9253a055.css.map",
-    "main.e9ca37a8.js.map": "/rfds-flight-tracker/static/js/main.e9ca37a8.js.map",
+    "main.2b9bc082.js.map": "/rfds-flight-tracker/static/js/main.2b9bc082.js.map",
     "879.f8cdbd1e.chunk.js.map": "/rfds-flight-tracker/static/js/879.f8cdbd1e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9253a055.css",
-    "static/js/main.e9ca37a8.js"
+    "static/js/main.2b9bc082.js"
   ]
 }
