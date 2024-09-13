@@ -117,7 +117,7 @@ const FlightMap = ({ simulationState }) => {
               </svg>
             </Marker>
           ))}
-          {activeFlights.map(flight => {
+          {activeFlights.map((flight, index) => {
             const departureAirport = australianAirports.find(airport => airport.iataCode === flight.departureAirport);
             const arrivalAirport = australianAirports.find(airport => airport.iataCode === flight.arrivalAirport);
             const curvePoints = calculateCurve(departureAirport.lon, departureAirport.lat, arrivalAirport.lon, arrivalAirport.lat);
@@ -125,13 +125,13 @@ const FlightMap = ({ simulationState }) => {
             
             return (
               <Marker
-                key={flight.id}
+                key={index}
                 longitude={lon}
                 latitude={lat}
                 anchor="center"
               >
                 <img
-                  src="/images/airplane1.png"
+                  src={process.env.PUBLIC_URL + "/images/airplane1.png"}
                   alt={`Flight ${flight.id}`}
                   style={{
                     width: '30px',
