@@ -1,4 +1,4 @@
-# Royal Flying Doctor Service flight tracker (simulated)
+# Flight tracker (simulated)
 
 ## Inspired by https://www.artprocessors.net/articles/australian-stockmans-hall-fame-rfds-flight-tracker
 
