@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Table, Container } from 'react-bootstrap';
 
 const FlightTable = ({ flightData }) => {
-  console.log("FlightData received in FlightTable:", flightData); // Add this line for debugging
+  useEffect(() => {
+    console.log("FlightData received in FlightTable:", flightData);
+  }, [flightData]);
 
   const formatDuration = (minutes) => {
     if (typeof minutes !== 'number' || isNaN(minutes)) {
