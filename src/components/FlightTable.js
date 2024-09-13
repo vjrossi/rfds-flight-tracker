@@ -6,11 +6,12 @@ const FlightTable = ({ flightData }) => {
     console.log("FlightData received in FlightTable:", flightData);
   }, [flightData]);
 
-  const formatDuration = (minutes) => {
-    if (typeof minutes !== 'number' || isNaN(minutes)) {
-      console.log("Invalid duration:", minutes); // Debugging line
+  const formatDuration = (milliseconds) => {
+    if (typeof milliseconds !== 'number' || isNaN(milliseconds)) {
+      console.log("Invalid duration:", milliseconds);
       return 'Invalid duration';
     }
+    const minutes = Math.floor(milliseconds / 60000);
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
     return `${hours}h ${mins}m`;
