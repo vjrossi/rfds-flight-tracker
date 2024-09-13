@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.9253a055.css",
-    "main.js": "/static/js/main.af1040c1.js",
-    "static/js/879.08ef5cf8.chunk.js": "/static/js/879.08ef5cf8.chunk.js",
-    "index.html": "/index.html",
-    "main.9253a055.css.map": "/static/css/main.9253a055.css.map",
-    "main.af1040c1.js.map": "/static/js/main.af1040c1.js.map",
-    "879.08ef5cf8.chunk.js.map": "/static/js/879.08ef5cf8.chunk.js.map"
+    "main.css": "/rfds-flight-tracker/static/css/main.9253a055.css",
+    "main.js": "/rfds-flight-tracker/static/js/main.236ffc0d.js",
+    "static/js/879.f8cdbd1e.chunk.js": "/rfds-flight-tracker/static/js/879.f8cdbd1e.chunk.js",
+    "index.html": "/rfds-flight-tracker/index.html",
+    "main.9253a055.css.map": "/rfds-flight-tracker/static/css/main.9253a055.css.map",
+    "main.236ffc0d.js.map": "/rfds-flight-tracker/static/js/main.236ffc0d.js.map",
+    "879.f8cdbd1e.chunk.js.map": "/rfds-flight-tracker/static/js/879.f8cdbd1e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9253a055.css",
-    "static/js/main.af1040c1.js"
+    "static/js/main.236ffc0d.js"
   ]
 }
