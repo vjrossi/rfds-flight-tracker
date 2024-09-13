@@ -1,11 +1,8 @@
-// src/hooks/useFlightSimulation.js
-
 import { useState, useEffect, useRef } from 'react';
-import generateFlightData from '../generateFlightData';
 
-const useFlightSimulation = () => {
+const useFlightSimulation = (flightData, isStarted) => {
   const [simulationState, setSimulationState] = useState({
-    flights: generateFlightData(),
+    flights: [],
     currentTime: null,
     activeFlights: [],
     planesInFlight: 0,
@@ -14,15 +11,21 @@ const useFlightSimulation = () => {
   const timerRef = useRef(null);
 
   useEffect(() => {
-    if (simulationState.flights.length > 0 && !simulationState.currentTime) {
+    if (flightData) {
+      setSimulationState(prevState => ({ ...prevState, flights: flightData }));
+    }
+  }, [flightData]);
+
+  useEffect(() => {
+    if (isStarted && simulationState.flights.length > 0 && !simulationState.currentTime) {
       const startTime = new Date(simulationState.flights[0].departureTime);
       startTime.setHours(0, 0, 0, 0); // Start at the beginning of the day
       setSimulationState(prevState => ({ ...prevState, currentTime: startTime }));
     }
-  }, [simulationState.flights, simulationState.currentTime]);
+  }, [isStarted, simulationState.flights, simulationState.currentTime]);
 
   useEffect(() => {
-    if (!simulationState.currentTime) return;
+    if (!simulationState.currentTime || !isStarted) return;
 
     timerRef.current = setInterval(() => {
       setSimulationState(prevState => {
@@ -70,7 +73,7 @@ const useFlightSimulation = () => {
     }, 100); // Update every 100ms for faster simulation
 
     return () => clearInterval(timerRef.current);
-  }, [simulationState.currentTime]);
+  }, [simulationState.currentTime, isStarted]);
 
   return simulationState;
 };

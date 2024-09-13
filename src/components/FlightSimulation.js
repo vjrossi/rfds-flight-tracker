@@ -1,10 +1,7 @@
-// src/components/FlightSimulation.js
-
 import React from 'react';
-import useFlightSimulation from '../hooks/useFlightSimulation';
 
-const FlightSimulation = () => {
-  const { currentTime, simulationLog, planesInFlight } = useFlightSimulation();
+const FlightSimulation = ({ simulationState }) => {
+  const { currentTime, simulationLog, planesInFlight } = simulationState;
 
   return (
     <div>

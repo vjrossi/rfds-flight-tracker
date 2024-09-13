@@ -1,10 +1,9 @@
 // src/components/InfoPanel.js
 
 import React from 'react';
-import useFlightSimulation from '../hooks/useFlightSimulation';
 
-const InfoPanel = () => {
-    const { currentTime, flights, activeFlights, simulationLog } = useFlightSimulation();
+const InfoPanel = ({ simulationState }) => {
+    const { currentTime, flights, activeFlights, simulationLog } = simulationState;
 
     return (
         <div style={{
@@ -18,10 +17,10 @@ const InfoPanel = () => {
             flexDirection: 'column'
         }}>
             <h2 style={{ fontSize: '30px', marginBottom: '10px' }}>
-                {currentTime ? currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '--:--'}
+                {currentTime ? currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Simulation not started'}
             </h2>
             <p style={{ fontSize: '20px', marginBottom: '20px' }}>
-                {currentTime ? currentTime.toLocaleDateString([], { day: 'numeric', month: 'long' }) : '-- ----'}
+                {currentTime ? currentTime.toLocaleDateString([], { day: 'numeric', month: 'long' }) : ''}
             </p>
             <p style={{ fontSize: '14px', marginBottom: '20px' }}>
                 The Royal Flying Doctor Service has {flights.length} aircraft that cover the length and breadth of the country. This map shows the RFDS planes that are currently in the air, providing vital services across Australia.
