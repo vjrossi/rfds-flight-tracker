@@ -131,7 +131,7 @@ const FlightMap = ({ simulationState }) => {
                 anchor="center"
               >
                 <img
-                  src={process.env.PUBLIC_URL + "/images/airplane1.png"}
+                  src={`${process.env.PUBLIC_URL}/images/airplane1.png`}
                   alt={`Flight ${flight.id}`}
                   style={{
                     width: '30px',
