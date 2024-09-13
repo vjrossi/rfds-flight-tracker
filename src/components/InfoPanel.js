@@ -35,6 +35,9 @@ const InfoPanel = ({ simulationState }) => {
                     <p style={{ fontSize: '20px' }}>flights in 24 hours</p>
                 </div>
             </div>
+            <div style={{ marginBottom: '20px', textAlign: 'center' }}>
+                <img src='/images/rf_horizontal_cmyk_ses_white.png' style={{ maxWidth: '100%', height: 'auto' }} alt='RFDS logo' />
+            </div>
             <div style={{ marginTop: '20px', marginBottom: '20px' }}>
                 <h3 style={{ fontSize: '20px', marginBottom: '10px' }}>Flight Log</h3>
                 <div style={{ height: '100%', overflowY: 'auto', fontSize: '14px' }}>
@@ -42,9 +45,6 @@ const InfoPanel = ({ simulationState }) => {
                         <div key={index} style={{ marginBottom: '5px' }}>{log}</div>
                     ))}
                 </div>
-            </div>
-            <div style={{ marginTop: 'auto' }}>
-                <img src='/images/rf_horizontal_cmyk_ses_white.png' height={90} alt='rfds logo' />
             </div>
         </div>
     );
