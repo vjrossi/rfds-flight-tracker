@@ -18,12 +18,10 @@ const useFlightSimulation = (flightData, isStarted) => {
 
   useEffect(() => {
     if (isStarted && simulationState.flights.length > 0 && !simulationState.currentTime) {
-      const startTime = new Date(simulationState.flights[0].departureTime);
-      startTime.setHours(0, 0, 0, 0); // Start at the beginning of the day
-      setSimulationState(prevState => ({ ...prevState, currentTime: startTime }));
+      const firstFlightDeparture = new Date(Math.min(...simulationState.flights.map(f => new Date(f.departureTime))));
+      setSimulationState(prevState => ({ ...prevState, currentTime: firstFlightDeparture }));
     }
   }, [isStarted, simulationState.flights, simulationState.currentTime]);
-
   useEffect(() => {
     if (!simulationState.currentTime || !isStarted) return;
 

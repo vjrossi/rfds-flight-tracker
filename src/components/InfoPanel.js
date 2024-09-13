@@ -23,7 +23,7 @@ const InfoPanel = ({ simulationState }) => {
                 {currentTime ? currentTime.toLocaleDateString([], { day: 'numeric', month: 'long' }) : ''}
             </p>
             <p style={{ fontSize: '14px', marginBottom: '20px' }}>
-                The Royal Flying Doctor Service has {flights.length} aircraft that cover the length and breadth of the country. This map shows the RFDS planes that are currently in the air, providing vital services across Australia.
+                The Royal Flying Doctor Service has 81 aircraft that cover the length and breadth of the country. This map shows the RFDS planes that are currently in the air, providing vital services across Australia.
             </p>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
                 <div style={{ textAlign: 'center', maxHeight: '90%', maxWidth: '45%', padding: '15px', borderStyle: 'solid' }}>

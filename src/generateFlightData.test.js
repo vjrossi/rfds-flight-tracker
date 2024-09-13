@@ -16,10 +16,10 @@ describe('generateFlightData', () => {
   test('generates flights within a 24-hour period', () => {
     const firstFlightTime = new Date(flights[0].departureTime);
     const lastFlightTime = new Date(flights[flights.length - 1].arrivalTime);
-    
+
     // Check if all flights are within the same day
     expect(firstFlightTime.getDate()).toBe(lastFlightTime.getDate());
-    
+
     // Check if the time difference is less than or equal to 24 hours
     const timeDifference = lastFlightTime.getTime() - firstFlightTime.getTime();
     expect(timeDifference).toBeLessThanOrEqual(24 * 60 * 60 * 1000);
@@ -27,7 +27,7 @@ describe('generateFlightData', () => {
 
   test('flights are sorted by departure time', () => {
     for (let i = 1; i < flights.length; i++) {
-      const prevDepartureTime = new Date(flights[i-1].departureTime).getTime();
+      const prevDepartureTime = new Date(flights[i - 1].departureTime).getTime();
       const currentDepartureTime = new Date(flights[i].departureTime).getTime();
       expect(currentDepartureTime).toBeGreaterThanOrEqual(prevDepartureTime);
     }
@@ -63,5 +63,17 @@ describe('generateFlightData', () => {
       return hour >= 12 && hour < 24;
     });
     expect(afternoonEveningFlights.length).toBeGreaterThan(flights.length * 0.6); // Expecting more than 60% of flights between 12 PM and midnight
+  });
+  
+  test('flight duration is between 30 minutes and 2 hours and matches the calculated duration', () => {
+    flights.forEach(flight => {
+      const departureTime = new Date(flight.departureTime).getTime();
+      const arrivalTime = new Date(flight.arrivalTime).getTime();
+      const calculatedDurationMinutes = (arrivalTime - departureTime) / (60 * 1000);
+      expect(flight.duration).toBeDefined();
+      expect(flight.duration).toBeGreaterThanOrEqual(30);
+      expect(flight.duration).toBeLessThanOrEqual(120);
+      expect(flight.duration).toBeCloseTo(calculatedDurationMinutes, 0); // Allow for small rounding differences
+    });
   });
 });
