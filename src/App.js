@@ -29,7 +29,7 @@ function App() {
       <div className="App">
         <Navbar />
         <div style={{ margin: '20px' }}>
-          <button onClick={handleGenerateData} disabled={flightData !== null}>
+          <button onClick={handleGenerateData}>
             Generate Flight Data
           </button>
           <button onClick={handleStartSimulation} disabled={!flightData || isSimulationStarted} style={{ marginLeft: '10px' }}>
