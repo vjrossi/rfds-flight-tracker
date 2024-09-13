@@ -6,3 +6,6 @@ After seeing the above, I thought I'd try my hand at it. Mine doesn't get data f
 its own relatively realistic data. Much of this was assited by Claude AI and the Cursor IDE.
 
 It's a React.js app using Bootstrap, styled components, MapBox, etc.
+
+
+#### This was largely done in a day.
