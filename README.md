@@ -9,3 +9,7 @@ It's a React.js app using Bootstrap, styled components, MapBox, etc.
 
 
 #### This was largely done in a day.
+
+Try it out at right now on Github Pages
+https://vjrossi.github.io/rfds-flight-tracker/
+
